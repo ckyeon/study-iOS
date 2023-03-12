@@ -5,7 +5,7 @@
 ## Todo
 
 ### iOS 개발 시작하기
-- [x] [A Swift Tour](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/guidedtour/)
+- [ ] [A Swift Tour](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/guidedtour/)
 - [ ] [iOS App Dev Tutorials](https://developer.apple.com/tutorials/app-dev-training)
 - [ ] [Xcode Help](https://help.apple.com/xcode/mac/current/#/)
 
