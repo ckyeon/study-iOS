@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Theme: String, CaseIterable, Identifiable {
+enum Theme: String, CaseIterable, Identifiable, Codable {
     case bubblegum
     case buttercup
     case indigo
@@ -39,7 +39,7 @@ enum Theme: String, CaseIterable, Identifiable {
     var name: String {
         rawValue.capitalized
     }
-    
+
     var id: String {
         name
     }

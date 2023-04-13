@@ -11,6 +11,8 @@ struct ScrumsView: View {
     @Binding var scrums: [DailyScrum]
     @State private var isPresentingNewScrumView = false
     @State private var newScrumData = DailyScrum.Data()
+    @Environment(\.scenePhase) private var scenePhase
+    let saveAction: () -> Void
 
     var body: some View {
         List {
@@ -31,25 +33,11 @@ struct ScrumsView: View {
             .accessibilityLabel("New Scrum")
         }
         .sheet(isPresented: $isPresentingNewScrumView) {
-            NavigationView {
-                DetailEditView(data: $newScrumData)
-                    .toolbar {
-                        ToolbarItem(placement: .cancellationAction) {
-                            Button("Dismiss") {
-                                isPresentingNewScrumView = false
-                                newScrumData = DailyScrum.Data()
-                            }
-                        }
-                        ToolbarItem(placement: .confirmationAction) {
-                            Button("Add") {
-                                let newScrum = DailyScrum(data: newScrumData)
-                                scrums.append(newScrum)
-                                isPresentingNewScrumView = false
-                                newScrumData = DailyScrum.Data()
-                            }
-                        }
-                    }
-            }
+            NewScrumSheet(scrums: $scrums, isPresentingNewScrumView: $isPresentingNewScrumView)
+        }
+        .onChange(of: scenePhase) {
+            phase in
+            if phase == .inactive { saveAction() }
         }
     }
 }
@@ -57,7 +45,7 @@ struct ScrumsView: View {
 struct ScrumsView_Previwes: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ScrumsView(scrums: .constant(DailyScrum.sampleData))
+            ScrumsView(scrums: .constant(DailyScrum.sampleData), saveAction: {})
         }
     }
 }

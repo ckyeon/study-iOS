@@ -10,7 +10,7 @@ import SwiftUI
 struct DetailView: View {
     @Binding var scrum: DailyScrum
 
-    @State private var data = DailyScrum.Data()
+    @State private var data = DailyScrum.emptyScrum
     @State private var isPresentingEditView = false
 
     var body: some View {
@@ -59,7 +59,7 @@ struct DetailView: View {
         .toolbar {
             Button("Edit") {
                 isPresentingEditView = true
-                data = scrum.data
+                data = scrum
             }
         }
         .sheet(isPresented: $isPresentingEditView) {
@@ -75,7 +75,7 @@ struct DetailView: View {
                         ToolbarItem(placement: .confirmationAction) {
                             Button("Done") {
                                 isPresentingEditView = false
-                                scrum.update(from: data)
+                                scrum.update(from: data.data)
                             }
                         }
                     }
